@@ -36,4 +36,41 @@ A Deep Q-Network (DQN) is trained on a simulated workload to learn state-depende
 - Incorporating predictive state features (e.g., workload trends)
 - Extending the approach to multi-task and multi-objective scheduling
 
+# There we go,this journey only gets damn interesting as ML has always been for me!!
+
+## Module 2: Drift-Aware Predictive Load Balancing
+
+### Motivation
+While reinforcement learning enables adaptive scheduling, it often requires long training horizons and careful reward shaping. This module explores whether **lightweight predictive modeling** can improve scheduling decisions by anticipating near-future system load, particularly under workload drift or transient spikes.
+
+### Approach
+The scheduler augments the classical **Least-Work-Remaining (LWR)** heuristic with short-horizon load prediction:
+- Simple Moving Average (SMA) and Exponential Weighted Moving Average (EWMA) are used to track recent CPU load trends.
+- A lightweight linear regression model predicts near-future CPU load.
+- A drift detection mechanism activates predictive scheduling only when predicted load deviates significantly from current load; otherwise, the scheduler falls back to standard LWR.
+
+This hybrid design aims to balance robustness and stability while avoiding unnecessary prediction noise.
+
+### Experimental Setup
+- Heterogeneous multiprocessor system with dynamic task arrivals
+- Decision-dependent SLA modeling based on task completion time vs deadline
+- Baselines: Round Robin (RR), Least-Work-Remaining (LWR)
+- Metrics: average reward, oracle agreement, SLA violation rate
+
+### Key Results
+- The predictive scheduler consistently outperforms **Round Robin**, confirming the benefit of informed scheduling.
+- **Least-Work-Remaining remains the strongest baseline** under queue-dominated and smoothly evolving workloads.
+- Predictive scheduling does not universally outperform greedy heuristics; estimation noise can outweigh benefits when system dynamics are stable.
+
+### Insights & Lessons Learned
+- Scheduling effectiveness is highly **workload-dependent**.
+- Predictive models are most beneficial under abrupt load shifts; in stable regimes, greedy heuristics remain near-optimal.
+- These results highlight an important limitation of prediction-based scheduling and reinforce the need for adaptive strategy selection rather than a single universal policy.
+
+### Future Directions
+- Adaptive drift thresholds based on workload volatility
+- Non-linear or probabilistic predictors for highly dynamic workloads
+- Integration with learning-based or graph-based schedulers for global context
+
+
 
