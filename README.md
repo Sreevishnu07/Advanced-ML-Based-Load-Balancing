@@ -161,6 +161,6 @@ The GNN-based scheduler consistently **outperforms Least-Work-Remaining** in SLA
 
 This module demonstrates that **GNN-based global reasoning**, when correctly formulated as a cost regression problem, provides a robust and effective approach to multiprocessor load balancing. The results highlight the importance of objective alignment and relational modeling in ML-driven scheduling systems.
 
-#Thank you!
+# Thank you for listening!
 
 
